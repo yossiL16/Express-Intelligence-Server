@@ -1,8 +1,7 @@
 import {promises as fs} from 'fs'
 
-const location = './data/target.json'
 
-export async function readFromFile() {
+export async function readFromFile(location) {
     try {
          const data = await fs.readFile(location);
          const jsonData = JSON.parse(data)

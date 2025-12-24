@@ -1,6 +1,7 @@
 import express from 'express'
 import usersRouter from './routers/users.js';
-import agentsRouter from './routers/agents.js'
+import agentsRouter from './routers/agents.js';
+import reportsRouter from './routers/reports.js';
 
 
 const app = express()
@@ -10,6 +11,7 @@ app.use(express.json())
 
 app.use('/users',usersRouter)
 app.use('/agents',agentsRouter)
+app.use('/reports', reportsRouter)
 
 
 

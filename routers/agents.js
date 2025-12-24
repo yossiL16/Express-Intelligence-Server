@@ -4,9 +4,11 @@ import {writeToFile} from './io/write.js'
 
 const agentsRouter = express()
 
+const locaion = './data/agents.json'
+
 agentsRouter.get('/', async (req,res) => {
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         res.json(data)
     } catch (err) {
         console.error(err);
@@ -17,7 +19,7 @@ agentsRouter.get('/', async (req,res) => {
 agentsRouter.get('/:id', async (req,res) => {
     const id = req.params.id
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         for(const agent of data) {
             if(agent.id === id) {
                 res.json(agent)
@@ -30,7 +32,7 @@ agentsRouter.get('/:id', async (req,res) => {
 
 
 agentsRouter.post('/',async (req,res) => {
-      let data = await readFromFile();
+      let data = await readFromFile(location);
     const newAgent = req.body
     try {
         if(!newAgent) {
@@ -49,7 +51,7 @@ agentsRouter.put('/:id', async (req,res) => {
     const id = req.params.id
     const change = req.body
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         data.forEach(agent => {
             if(agent.id === id) {
                 for(const key in change) {
@@ -68,7 +70,7 @@ agentsRouter.put('/:id', async (req,res) => {
 agentsRouter.delete('/:id', async (req,res) => {
     const id = req.params.id
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         for(const indexAgent in data) {
             if (data[indexAgent].id === id) {
                 data.splice(indexAgent,1)

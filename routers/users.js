@@ -5,10 +5,12 @@ import {writeToFile} from './io/write.js'
 
 const usersRouter = express();
 
+const location = './data/users.json'
+
 
 usersRouter.get('/', async (req,res) => {
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         res.json(data)
     } catch (err) {
        console.error(err);
@@ -18,7 +20,7 @@ usersRouter.get('/', async (req,res) => {
 
 usersRouter.post('/',async (req,res) => {
 
-    let data = await readFromFile();
+    let data = await readFromFile(location);
     const newUser = req.body
     try {
         if(!newUser) {
@@ -39,7 +41,7 @@ usersRouter.put('/:username', async (req,res) => {
     const username = req.params.username
     const change = req.body
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         data.forEach(user => {
             if(user.username === username) {
                 for(const key in change) {
@@ -58,7 +60,7 @@ usersRouter.put('/:username', async (req,res) => {
 usersRouter.delete('/:username',async (req,res) => {
     const username = req.params.username
     try {
-        const data = await readFromFile();
+        const data = await readFromFile(location);
         for(const user in data) {
             if (data[user].username === username) {
                 data.splice(user,1)
