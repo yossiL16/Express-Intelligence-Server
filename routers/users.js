@@ -11,9 +11,9 @@ usersRouter.get('/', async (req,res) => {
         const data = await readFromFile();
         res.json(data)
     } catch (err) {
-        res.json(Error, err)
-    }
-})
+       console.error(err);
+        
+}})
 
 
 usersRouter.post('/',async (req,res) => {
